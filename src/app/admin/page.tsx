@@ -1564,6 +1564,131 @@ export default function AdminPage() {
                     </div>
                   </div>
 
+                  {/* LinkedIn & Google Maps Links */}
+                  <div className="pt-4 border-t border-line space-y-4">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-navy">
+                      Sosial Media & Navigasi Lokasi
+                    </h3>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-navy mb-1">
+                        Link Profil LinkedIn
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="url"
+                          placeholder="https://www.linkedin.com/company/pragata-makmur-persada"
+                          value={content.contact.info.linkedIn || ""}
+                          onChange={(e) =>
+                            setContent({
+                              ...content,
+                              contact: {
+                                ...content.contact,
+                                info: { ...content.contact.info, linkedIn: e.target.value },
+                              },
+                            })
+                          }
+                          className="flex-1 h-9 px-3 text-xs rounded border border-line bg-surface text-navy"
+                        />
+                        {content.contact.info.linkedIn && (
+                          <a
+                            href={content.contact.info.linkedIn}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 h-9 flex items-center gap-1.5 text-xs font-medium rounded border border-line bg-surface text-navy hover:bg-line/20"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5 text-cyan" />
+                            Tes
+                          </a>
+                        )}
+                      </div>
+                      <p className="mt-1 text-[11px] text-body">
+                        Tautan profil resmi LinkedIn perusahaan untuk calon klien & rekrutmen.
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-navy mb-1">
+                        Link Navigasi Google Maps (Buka Petunjuk Arah)
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="url"
+                          placeholder="https://maps.google.com/?q=Epicentrum+Walk+Kuningan+Jakarta+Selatan"
+                          value={content.contact.info.mapsUrl || ""}
+                          onChange={(e) =>
+                            setContent({
+                              ...content,
+                              contact: {
+                                ...content.contact,
+                                info: { ...content.contact.info, mapsUrl: e.target.value },
+                              },
+                            })
+                          }
+                          className="flex-1 h-9 px-3 text-xs rounded border border-line bg-surface text-navy"
+                        />
+                        {content.contact.info.mapsUrl && (
+                          <a
+                            href={content.contact.info.mapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 h-9 flex items-center gap-1.5 text-xs font-medium rounded border border-line bg-surface text-navy hover:bg-line/20"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5 text-cyan" />
+                            Tes
+                          </a>
+                        )}
+                      </div>
+                      <p className="mt-1 text-[11px] text-body">
+                        Tautan langsung ke Google Maps saat pengunjung mengklik petunjuk arah.
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-navy mb-1">
+                        URL Embed Google Maps (Live Location Iframe)
+                      </label>
+                      <textarea
+                        rows={2}
+                        placeholder="https://www.google.com/maps/embed?pb=..."
+                        value={content.contact.info.mapsEmbed || ""}
+                        onChange={(e) =>
+                          setContent({
+                            ...content,
+                            contact: {
+                              ...content.contact,
+                              info: { ...content.contact.info, mapsEmbed: e.target.value },
+                            },
+                          })
+                        }
+                        className="w-full p-2.5 text-xs rounded border border-line bg-surface text-navy font-mono"
+                      />
+                      <p className="mt-1 text-[11px] text-body">
+                        Masukkan URL dari menu Google Maps &gt; Bagikan &gt; Sematkan Peta (ambil nilai <code>src=&quot;...&quot;</code>).
+                      </p>
+
+                      {/* Live preview in admin */}
+                      {content.contact.info.mapsEmbed && (
+                        <div className="mt-3">
+                          <span className="block text-[11px] font-semibold text-navy mb-1.5">
+                            Pratinjau Live Location Peta:
+                          </span>
+                          <div className="w-full h-44 rounded border border-line overflow-hidden bg-surface">
+                            <iframe
+                              title="Pratinjau Lokasi Google Maps"
+                              src={content.contact.info.mapsEmbed}
+                              width="100%"
+                              height="100%"
+                              style={{ border: 0 }}
+                              allowFullScreen={false}
+                              loading="lazy"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
                   <div className="pt-4 border-t border-line space-y-4">
                     <div>
                       <label className="block text-xs font-semibold text-navy mb-1">

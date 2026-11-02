@@ -7,10 +7,12 @@ import { siteContent, type SiteContent } from "@/content/site";
 
 interface FooterProps {
   content?: SiteContent["footer"];
+  contactInfo?: SiteContent["contact"]["info"];
 }
 
-export function Footer({ content }: FooterProps = {}) {
+export function Footer({ content, contactInfo }: FooterProps = {}) {
   const footer = content || siteContent.footer;
+  const info = contactInfo || siteContent.contact.info;
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
@@ -62,6 +64,19 @@ export function Footer({ content }: FooterProps = {}) {
               {footer.addressLines.map((line, idx) => (
                 <p key={idx}>{line}</p>
               ))}
+              <div className="pt-2">
+                <a
+                  href={
+                    info.mapsUrl ||
+                    "https://maps.google.com/?q=Epicentrum+Walk+Kuningan+Jakarta+Selatan"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-cyan hover:underline"
+                >
+                  📍 Buka di Google Maps &rarr;
+                </a>
+              </div>
             </div>
           </div>
 
@@ -111,23 +126,29 @@ export function Footer({ content }: FooterProps = {}) {
               {footer.columns.contact.title}
             </p>
             <ul className="space-y-2.5 text-xs">
-              {footer.columns.contact.links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleAnchorClick(e, link.href)}
-                    className="hover:text-cyan transition-colors"
-                    target={link.href.startsWith("http") ? "_blank" : undefined}
-                    rel={
-                      link.href.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {footer.columns.contact.links.map((link) => {
+                const isLinkedIn = link.label.toLowerCase().includes("linkedin");
+                const href = isLinkedIn
+                  ? info.linkedIn || link.href
+                  : link.href;
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={href}
+                      onClick={(e) => handleAnchorClick(e, href)}
+                      className="hover:text-cyan transition-colors"
+                      target={href.startsWith("http") ? "_blank" : undefined}
+                      rel={
+                        href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

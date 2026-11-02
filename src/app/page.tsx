@@ -28,7 +28,7 @@ export default function Home() {
         <CtaBand content={content.ctaBand} />
         <Contact content={content.contact} careers={content.careers} />
       </main>
-      <Footer content={content.footer} />
+      <Footer content={content.footer} contactInfo={content.contact.info} />
     </div>
   );
 }

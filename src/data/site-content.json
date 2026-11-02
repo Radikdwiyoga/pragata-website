@@ -353,7 +353,10 @@
     "info": {
       "address": "Epicentrum Walk Lt. 5, Suite South 529A, Jl. HR. Rasuna Said, Kuningan, Jakarta Selatan 12940",
       "email": "info@pragata.co.id",
-      "phone": "+62 21 0000 0000"
+      "phone": "+62 21 0000 0000",
+      "linkedIn": "https://www.linkedin.com/company/pragata-makmur-persada",
+      "mapsUrl": "https://maps.google.com/?q=Epicentrum+Walk+Kuningan+Jakarta+Selatan",
+      "mapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3688176885376!2d106.8329623!3d-6.2150039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4175394ebdb%3A0xc6cb556bcddaa992!2sEpicentrum%20Walk!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
     }
   },
   "careers": {

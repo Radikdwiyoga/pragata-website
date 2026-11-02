@@ -5,7 +5,15 @@ import { siteContent, type SiteContent } from "@/content/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { MapPin, Mail, Phone, Briefcase, Send, CheckCircle2 } from "lucide-react";
+import { MapPin, Mail, Phone, Briefcase, Send, CheckCircle2, ExternalLink, Navigation } from "lucide-react";
+
+function LinkedInIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+    </svg>
+  );
+}
 
 interface ContactProps {
   content?: SiteContent["contact"];
@@ -221,14 +229,36 @@ export function Contact({ content, careers: careersProp }: ContactProps = {}) {
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Contact Details Card */}
             <Card className="p-6 bg-white border-line">
-              <h3 className="font-display text-base font-bold text-navy mb-4">
-                Informasi Kantor Pusat
-              </h3>
-              <div className="space-y-4 text-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-display text-base font-bold text-navy">
+                  Informasi Kantor Pusat
+                </h3>
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Live Location
+                </span>
+              </div>
+
+              <div className="space-y-3.5 text-sm">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-cyan mt-1 shrink-0" />
-                  <p className="text-body leading-relaxed">{contact.info.address}</p>
+                  <div className="flex-1">
+                    <p className="text-body leading-relaxed">{contact.info.address}</p>
+                    {contact.info.mapsUrl && (
+                      <a
+                        href={contact.info.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 mt-1 text-xs font-semibold text-cyan hover:underline"
+                      >
+                        <Navigation className="w-3.5 h-3.5" />
+                        Buka Petunjuk Arah di Google Maps
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
                 </div>
+
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-cyan shrink-0" />
                   <a
@@ -238,6 +268,7 @@ export function Contact({ content, careers: careersProp }: ContactProps = {}) {
                     {contact.info.email}
                   </a>
                 </div>
+
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-cyan shrink-0" />
                   <a
@@ -246,6 +277,61 @@ export function Contact({ content, careers: careersProp }: ContactProps = {}) {
                   >
                     {contact.info.phone}
                   </a>
+                </div>
+
+                {contact.info.linkedIn && (
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 text-[#0A66C2] shrink-0 flex items-center justify-center">
+                      <LinkedInIcon className="w-4 h-4" />
+                    </div>
+                    <a
+                      href={contact.info.linkedIn}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-body hover:text-[#0A66C2] transition-colors font-medium inline-flex items-center gap-1.5"
+                    >
+                      PT Pragata Makmur Persada on LinkedIn
+                      <ExternalLink className="w-3 h-3 text-muted" />
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Embedded Google Maps (Live Location) */}
+              <div className="mt-5 pt-4 border-t border-line">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-navy flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-cyan" />
+                    Peta Lokasi Kantor Pusat
+                  </span>
+                  {contact.info.mapsUrl && (
+                    <a
+                      href={contact.info.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] font-semibold text-cyan hover:underline inline-flex items-center gap-1"
+                    >
+                      Perbesar
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+
+                <div className="relative w-full h-56 sm:h-64 rounded-lg overflow-hidden border border-line bg-surface shadow-xs">
+                  <iframe
+                    title="Lokasi Kantor PT Pragata Makmur Persada"
+                    src={
+                      contact.info.mapsEmbed ||
+                      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3688176885376!2d106.8329623!3d-6.2150039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4175394ebdb%3A0xc6cb556bcddaa992!2sEpicentrum%20Walk!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                    }
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-full"
+                  />
                 </div>
               </div>
             </Card>
